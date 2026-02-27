@@ -1,12 +1,22 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Literal
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 
-nltk.download("vader_lexicon")
-
 app = FastAPI()
+
+# ✅ Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+nltk.download("vader_lexicon")
 
 sia = SentimentIntensityAnalyzer()
 
